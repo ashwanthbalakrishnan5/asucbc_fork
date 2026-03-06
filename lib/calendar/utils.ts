@@ -143,10 +143,16 @@ export function createCalendarMonth(
  */
 export function getEventsForDate(date: Date, events: CalendarEvent[]): CalendarEvent[] {
   return events.filter(event => {
-    const eventDate = event.start.dateTime 
-      ? new Date(event.start.dateTime)
-      : new Date(event.start.date!);
-    
+    let eventDate: Date;
+    if (event.start.dateTime) {
+      eventDate = new Date(event.start.dateTime);
+    } else {
+      // Date-only strings (e.g. "2026-05-20") must be parsed as local time,
+      // not UTC. new Date("2026-05-20") returns UTC midnight, which shifts the
+      // date back one day in timezones behind UTC (e.g. Arizona = UTC-7).
+      const [y, m, d] = event.start.date!.split('-').map(Number);
+      eventDate = new Date(y, m - 1, d);
+    }
     return isSameDay(eventDate, date);
   });
 }
