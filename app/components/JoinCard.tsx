@@ -134,7 +134,7 @@ export default function JoinCard({
             data-umami-event-location="JoinCard"
           >
             <Button variant="secondary" size="md" fullWidth className="h-full">
-              Sign up to receive benefits
+              Sign up for our email list!
             </Button>
           </Link>
         </motion.div>
