@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Heading, Text, Label, Input, Button, ButtonGroup } from "./ui";
 import ClaudeRedeemCongratulations from "./ClaudeRedeemCongratulations";
+import { getCalendarSubscriptionUrl } from "@/lib/calendar/google";
 
 interface FormData {
   firstName: string;
@@ -291,6 +292,8 @@ export default function ClaudeRedeemForm() {
     return `${hours}h ${minutes}m`;
   };
 
+  const calendarUrl = getCalendarSubscriptionUrl();
+
   return (
     <div className="max-w-2xl mx-auto pt-8 sm:pt-12 md:pt-16">
       <div className="mb-8">
@@ -480,21 +483,20 @@ export default function ClaudeRedeemForm() {
           </Text>
         </div>
 
-        {/* Submit Button */}
-        <div className="pt-6">
+        {/* Action Buttons */}
+        <div className="pt-6 flex gap-2">
           <Button
             type="submit"
             variant="primary"
             size="lg"
-            fullWidth
             disabled={
               isSubmitting || locationStatus !== "success" || cooldownActive
             }
-            className={
+            className={`w-1/2 ${
               isSubmitting || locationStatus !== "success" || cooldownActive
                 ? "!bg-gray-400"
                 : ""
-            }
+            }`}
           >
             {isSubmitting ? (
               <span className="flex items-center justify-center">
@@ -524,6 +526,30 @@ export default function ClaudeRedeemForm() {
               "Redeem Claude Credits"
             )}
           </Button>
+          {calendarUrl && (
+            <Button
+              type="button"
+              variant="secondary"
+              size="lg"
+              className="w-1/2 flex items-center justify-center gap-2"
+              onClick={() => window.open(calendarUrl, '_blank', 'noopener,noreferrer')}
+            >
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                />
+              </svg>
+              Add to Calendar
+            </Button>
+          )}
         </div>
       </form>
 
