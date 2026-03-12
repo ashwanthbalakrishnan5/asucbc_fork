@@ -540,7 +540,7 @@ export default function SponsorPage() {
                   className="!text-sm leading-6"
                 >
                   Anthropic (Platinum), Polymarket (Gold), Ether.fi (Bronze),
-                  Base (Bronze), Acorns, StreetSmart &mdash; companies that
+                  Base (Bronze), Acorns, StreetSmart, Red Bull &mdash; companies that
                   trust us to connect them with the next generation of builders.
                 </Text>
               </TiltCard>
